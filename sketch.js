@@ -1,52 +1,66 @@
-var car,wall;
+var helicopterIMG, helicopterSprite, packageSprite,packageIMG;
+var packageBody,ground
+const Engine = Matter.Engine;
+const World = Matter.World;
+const Bodies = Matter.Bodies;
+const Body = Matter.Body;
 
-var speed, weight;
+function preload()
+{
+	helicopterIMG=loadImage("helicopter.png")
+	packageIMG=loadImage("package.png")
+}
 
 function setup() {
-  createCanvas(1600,400);
+	createCanvas(800, 700);
+	rectMode(CENTER);
+	
 
-  speed=random(55,90)
-  weight=random(400,1500)
+	packageSprite=createSprite(200, 300, 10,10);
+	packageSprite.addImage(packageIMG)
+	packageSprite.scale=0.2
 
-  car = createSprite(50, 200, 50, 30);
-  //car.shapeColor=("green");
-  wall = createSprite(1500,200,60,height/2)
+	helicopterSprite=createSprite(width/2, 200, 10,10);
+	helicopterSprite.addImage(helicopterIMG)
+	helicopterSprite.scale=0.6
 
-  car.velocityX=speed;
+	groundSprite=createSprite(width/2, height-35, width,10);
+	groundSprite.shapeColor=color(255)
 
+
+	engine = Engine.create();
+	world = engine.world;
+
+	packageBody = Bodies.circle(width/2 , 200 , 5 , {restitution:0.4, isStatic:true});
+	World.add(world, packageBody);
+	
+
+	//Create a Ground
+	ground = Bodies.rectangle(width/2, 650, width, 10 , {isStatic:true} );
+ 	World.add(world, ground);
+
+
+	Engine.run(engine);
+  
 }
 
 function draw() {
+  rectMode(CENTER);
   background(0);
+  packageSprite.x= packageBody.position.x 
+  packageSprite.y= packageBody.position.y 
   
-  
+ // packageSprite.velocitY=2
+  //packageSprite.collide(ground)
 
- // deformation = (0.5*speed*weight*speed)/22500
-
-  if(wall.x-car.x < (car.width+wall.width)/2)
-  {
-    car.velocityX=0;
-    var deformation= 0.5 * weight *speed * speed/22509;
-
-    console.log(deformation)
-    if(deformation>180)
-    {
-      car.shapeColor="red";
-    }
-  
-    if (deformation<180 && deformation>100)
-    {
-      car.shapeColor="green";
-    }
-  
-    if(deformation<100)
-    {
-      car.shapeColor="blue";
-    }
-  
-  }
-
-  
+  //keyPressed();
   drawSprites();
+ 
 }
 
+function keyPressed() {
+ if (keyCode === DOWN_ARROW) {
+	Matter.Body.setStatic(packageBody,false)
+	
+  }
+}
