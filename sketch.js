@@ -1,71 +1,59 @@
-var helicopterIMG, helicopterSprite, packageSprite,packageIMG,wall1,wall2,wall3;
-var packageBody,ground
+
 const Engine = Matter.Engine;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Body = Matter.Body;
+var Ball;
 
 function preload()
 {
-	helicopterIMG=loadImage("helicopter.png")
-	packageIMG=loadImage("package.png")
+	
 }
 
 function setup() {
-	createCanvas(800, 700);
-	rectMode(CENTER);
+	createCanvas(2500, 1200);
+
+	wall1=createSprite(2000, 895, 50,200);
+	wall2=createSprite(1500, 895, 50,200);
+	wall3=createSprite(1750, 970, 500,50);
+
+	//ground.fill("yellow");
+
+   ball = new Ball(100,100,50);
 	
-
-	packageSprite=createSprite(200, 300, 10,10);
-	packageSprite.addImage(packageIMG)
-	packageSprite.scale=0.2
-
-	helicopterSprite=createSprite(width/2, 200, 10,10);
-	helicopterSprite.addImage(helicopterIMG)
-	helicopterSprite.scale=0.6
-
-	wall1=createSprite(300, 300, 50,20);
-	wall2=createSprite(500, 300, 50,20);
-	wall3=createSprite(700, 300, 50,20);
-	
-
-	groundSprite=createSprite(width/2, height-35, width,10);
-	groundSprite.shapeColor=color(255)
-
 
 	engine = Engine.create();
 	world = engine.world;
 
-	packageBody = Bodies.circle(width/2 , 200 , 5 , {restitution:0.4, isStatic:true});
-	World.add(world, packageBody);
 	
-
-	//Create a Ground
-	ground = Bodies.rectangle(width/2, 650, width, 10 , {isStatic:true} );
- 	World.add(world, ground);
 
 
 	Engine.run(engine);
   
 }
 
+
 function draw() {
   rectMode(CENTER);
   background(0);
-  packageSprite.x= packageBody.position.x 
-  packageSprite.y= packageBody.position.y 
-  
- // packageSprite.velocitY=2
-  //packageSprite.collide(ground)
 
-  //keyPressed();
+  console.log(Ball.body.position.x);
+    console.log(Ball.body.position.y);
+    console.log(Ball.body.angle);
+    Ball.display();
+    
+
+
+	keyPressed();
   drawSprites();
  
 }
 
-function keyPressed() {
- if (keyCode === DOWN_ARROW) {
-	Matter.Body.setStatic(packageBody,false)
-	
-  }
+function keyPressed(){
+	if(keyCode === UP_ARROW) {
+		Matter.body.applyForce(paperObject.body,paperObject.position,{x:85,Y:-85});
+	}
 }
+
+
+
