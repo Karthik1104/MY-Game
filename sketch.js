@@ -44,14 +44,13 @@ function draw() {
     
 
 
-	keyPressed();
   drawSprites();
  
 }
 
 function keyPressed(){
 	if(keyCode === UP_ARROW) {
-		Matter.body.applyForce(paperObject.body,paperObject.position,{x:85,Y:-85});
+		Matter.body.applyForce(paperObject.body.position,paperObject.position,{x:85,Y:-85});
 	}
 }
 
