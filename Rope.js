@@ -15,5 +15,5 @@ class Rope {
        World.add(world,this.rope)
       
     }
-
+    
 }

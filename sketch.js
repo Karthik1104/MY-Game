@@ -3,7 +3,8 @@ const Engine = Matter.Engine;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Body = Matter.Body;
-var  hanger
+var  roofobject
+var bobObject1
 
 function preload()
 {
@@ -13,13 +14,13 @@ function preload()
 function setup() {
 	createCanvas(800, 700);
 
-	hanger = createSprite(400,100,450,20)
+	roofobject = createSprite(400,100,450,20)
 
 
 	engine = Engine.create();
 	world = engine.world;
 
-	Rope1=new rope(bobObject1body,roofobject.body,bobDiameter*2,0);
+	Rope1=new rope(bobObject1.body,roofobject.body,bobDiameter*2,0);
 	
 
 
